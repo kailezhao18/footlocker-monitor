@@ -1,20 +1,30 @@
-# Foot Locker Monitor V4
+# Foot Locker Monitor V6
 
-Simple personal product-monitor dashboard.
+This project now includes a Chrome extension in `/extension` that reads the visible Foot Locker product page you open in your own browser. It does not attempt to bypass CAPTCHA, authentication, rate limits, or other access controls.
 
-## Current workflow
+## Recommended workflow
 
-1. Enter a Foot Locker Product # / SKU.
-2. Backend requests the corresponding public product page.
-3. Dashboard attempts to extract product name, price, image and available sizes.
-4. Click Refresh to compare the latest price/sizes with the previous result.
+1. Open a Foot Locker product page in Chrome.
+2. Click the Foot Locker Monitor V6 extension.
+3. Click **Scan Current Product Page**.
+4. The extension records product name, price, SKU, visible size states, and the check time.
+5. On the next scan of the same SKU, it compares the new available-size list to the prior scan and shows:
+   - RESTOCKED sizes
+   - SOLD OUT sizes
 
-The monitor does not bypass CAPTCHA, authentication, rate limits, or other access controls. Foot Locker can change its page structure, so extraction may require maintenance.
+Data is stored locally in Chrome using `chrome.storage.local`.
 
-## Render
+## Install the Chrome extension manually
 
-This repository includes `render.yaml`.
+1. Download or clone this repository.
+2. In Chrome, open `chrome://extensions`.
+3. Turn on **Developer mode**.
+4. Click **Load unpacked**.
+5. Select the repository's `extension` folder.
+6. Pin **Foot Locker Monitor V6** to the Chrome toolbar.
 
-Build command: `pip install -r requirements.txt`
+## Notes
 
-Start command: `gunicorn app:app`
+- The extension reads the DOM of Foot Locker pages that you open. Foot Locker may change page markup, so selectors may require maintenance.
+- The current V6 scan is user-initiated. It is not an unattended background scraper.
+- The older Render dashboard remains in the repository, but direct server-side product requests may be rejected with HTTP 403.
