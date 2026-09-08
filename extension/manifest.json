@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Foot Locker Monitor V6",
+  "version": "1.0.0",
+  "description": "Reads visible Foot Locker product size availability from pages you open and stores change history locally.",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": ["https://www.footlocker.com/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Foot Locker Monitor V6"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.footlocker.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
